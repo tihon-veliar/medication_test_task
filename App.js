@@ -1,26 +1,34 @@
-import { StatusBar } from 'expo-status-bar'
+import 'react-native-gesture-handler'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Checkbox } from 'react-native-material-ui'
+import { Provider } from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import {
+  CalendarScreen,
+  HomeScreen,
+  MedicationDetailsScreen,
+  MedicationScreen
+} from './src/screens'
+
+import store from './src/redux'
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+
+const Stack = createStackNavigator()
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hot Reaload</Text>
-      <StatusBar />
-      <Checkbox />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Calendar" component={CalendarScreen} />
+          <Stack.Screen name="Medication" component={MedicationScreen} />
+          <Stack.Screen name="Medication details" component={MedicationDetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 
